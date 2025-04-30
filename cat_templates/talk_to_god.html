@@ -1,0 +1,139 @@
+<!-- Button to open Talk to God -->
+<div class="talk-to-god-container">
+    <button id="talk-to-god-btn" class="cat-button">🦸‍♂️ Talk to God</button>
+  </div>
+  
+  <!-- Modal for messaging God -->
+  <div id="god-message-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Talk to God 🦸‍♂️</h2>
+      <p>Wish for desired features or talk to this divine entity about anything you desire.</p>
+      <textarea id="user-message" rows="5" placeholder="Your message to God..."></textarea>
+      <button id="submit-message" class="cat-button">Send Message</button>
+    </div>
+  </div>
+  
+  <!-- Style for modal and button -->
+  <style>
+    .talk-to-god-container {
+      position: absolute;
+      top: 10%;
+      left: 5%;
+    }
+  
+    #talk-to-god-btn {
+      background-color: #fff;
+      color: #333;
+      font-size: 1.5em;
+      padding: 15px 30px;
+      border: 3px solid #ffb6c1;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+    }
+  
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      margin: 15% auto;
+      border-radius: 10px;
+      width: 50%;
+      text-align: center;
+    }
+  
+    .close-btn {
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      position: absolute;
+      top: 5px;
+      right: 15px;
+    }
+  
+    .close-btn:hover,
+    .close-btn:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  
+    #user-message {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 1.1em;
+      border: 2px solid #ffb6c1;
+      border-radius: 8px;
+    }
+  
+    #submit-message {
+      background-color: #ffb6c1;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+  
+    #submit-message:hover {
+      background-color: #ff88a1;
+    }
+  
+    body {
+      background-image: url('{{ url_for("static", filename="cat_static/cat_background_heavenly.jpg") }}');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+      text-align: center;
+    }
+  </style>
+  
+  <!-- Script for Modal -->
+  <script>
+    const modal = document.getElementById('god-message-modal');
+    const btn = document.getElementById('talk-to-god-btn');
+    const closeBtn = document.getElementsByClassName('close-btn')[0];
+    const submitBtn = document.getElementById('submit-message');
+    const userMessage = document.getElementById('user-message');
+  
+    btn.onclick = function() {
+      modal.style.display = 'block';
+    }
+  
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+  
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  
+    submitBtn.onclick = function() {
+      const message = userMessage.value;
+      if (message) {
+        alert("Your message to God has been received. 🦸‍♂️✨");
+        modal.style.display = 'none';
+        userMessage.value = '';
+      } else {
+        alert("Please write a message before submitting!");
+      }
+    }
+  </script>
+  
