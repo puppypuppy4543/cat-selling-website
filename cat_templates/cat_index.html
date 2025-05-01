@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🐾 Cat-seling Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌾 Cat-seling Portal</title>
   <style>
     body {
       margin: 0;
@@ -18,15 +19,15 @@
     }
 
     .school-name {
-      font-size: 3.5em;
+      font-size: 3em;
       margin-top: 20px;
       text-shadow: 2px 2px 4px #000;
     }
 
     .paw-text {
       display: inline-block;
-      font-size: 2.2em;
-      margin-bottom: 30px;
+      font-size: 1.8em;
+      margin: 20px;
       animation: bounce 1.2s infinite;
       text-shadow: 1px 1px 3px #000;
     }
@@ -41,24 +42,25 @@
     }
 
     .btn-container {
-      margin-top: 50px;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
     }
 
     .cat-button {
       position: relative;
-      display: inline-block;
       background-color: rgba(255, 255, 255, 0.9);
       border: 3px solid #ffb6c1;
       color: #333;
-      font-size: 1.2em;
+      font-size: 1em;
       font-weight: bold;
-      padding: 16px 40px;
-      margin: 20px;
+      padding: 14px 30px;
       border-radius: 25px;
       cursor: pointer;
-      overflow: hidden;
       transition: transform 0.2s;
-      z-index: 1;
+      max-width: 90%;
     }
 
     .cat-button:hover {
@@ -87,12 +89,12 @@
 
     #talk-to-god-btn {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      font-size: 18px;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 10px 20px;
-      border-radius: 30px;
+      bottom: 20px;
+      right: 20px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 10px 16px;
+      border-radius: 25px;
       cursor: pointer;
       border: none;
       z-index: 1000;
@@ -113,17 +115,29 @@
 
     .modal-content {
       background-color: #fff;
-      margin: 15% auto;
+      margin: 10% auto;
       padding: 20px;
       border: 1px solid #888;
-      width: 80%;
-      max-width: 500px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 8px;
+    }
+
+    .modal-content h2 {
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+      font-size: 1em;
     }
 
     .close {
       color: #aaa;
       float: right;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: bold;
     }
 
@@ -133,28 +147,36 @@
       text-decoration: none;
       cursor: pointer;
     }
+
+    @media (min-width: 600px) {
+      .btn-container {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .cat-button {
+        margin: 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <h1 class="school-name">🐾 Fluorescent Public School 🐾</h1>
   <div class="paw-text">🐾 Welcome to the Ultimate Cat-seling Experience 🐾</div>
 
-  <!-- Buttons -->
   <div class="btn-container">
     <a href="/add" class="cat-button">➕ Add Counseling Form</a>
     <a href="/search" class="cat-button">🔍 Search Counseling Forms</a>
   </div>
 
-  <!-- "Talk to God" Button -->
-  <button id="talk-to-god-btn">🛐 Talk to God</button>
+  <button id="talk-to-god-btn">🚔 Talk to God</button>
 
-  <!-- Modal for "Talk to God" -->
   <div id="talkToGodModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
       <h2>Wish for desired features or talk to this divine entity about anything you desire</h2>
       <form action="/talk_to_god" method="POST">
-        <textarea name="message" rows="4" cols="50" placeholder="Type your message to God..." required></textarea><br><br>
+        <textarea name="message" rows="4" placeholder="Type your message to God..." required></textarea><br><br>
         <input type="submit" value="Send Message" class="cat-button">
       </form>
     </div>
