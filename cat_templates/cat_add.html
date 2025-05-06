@@ -25,6 +25,19 @@
       80% { transform: translate(2px, -2px); }
       100% { transform: translate(0px, 0px); }
     }
+    .text-box {
+      background-color: rgba(0, 0, 0, 0.9);
+      border: 2px solid lime;
+      border-radius: 10px;
+      display: inline-block;
+      padding: 20px;
+      margin-top: 20px;
+      max-width: 600px;
+    }
+    #biscuit-img {
+      width: 150px;
+      margin-top: 10px;
+    }
     #quiz-container {
       display: none;
       margin-top: 30px;
@@ -73,9 +86,11 @@
   </style>
 </head>
 <body>
-
   <h1 class="glitch-text" id="glitch">Creating New Counseling Form...</h1>
-  <p id="intro">Please wait while we prepare your serious admission form...</p>
+  <div id="intro" class="text-box">
+    <img id="biscuit-img" src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Biscuit">
+    <p id="dialogue">🐾 Biscuit: "Heya! Name's Biscuit. I'll be your guide through this wacky world of forms!"</p>
+  </div>
 
   <div id="quiz-container">
     <h2>👹 Boss Fight: MATH 👹</h2>
@@ -86,9 +101,16 @@
 
   <div id="floating">The Numbers were only the beginning... He is watching, KOT.</div>
 
-  <audio id="bg-music" src="https://cdn.pixabay.com/audio/2022/08/20/audio_9d2cc6b5f3.mp3" loop></audio>
+  <audio id="bg-music" src="{{ url_for('static', filename='bg_music.mp3') }}" loop></audio>
 
   <script>
+    const introLines = [
+      "Used to be just a regular pup, but then I saw... numbers.",
+      "Anyway! Let's not get into that... yet.",
+      "You're here for a *serious* admission form? Pfft. Okay! Let's boot up the system...",
+      "Wait. What's that sound...? Something's interfering..."
+    ];
+
     const questions = [
       { q: "What is 2 + 2?", a: ["3", "4", "5"], c: "4", biscuit: "This one's easy, right?" },
       { q: "What is 5 * 2?", a: ["10", "15", "20"], c: "10", biscuit: "We’re on fire!" },
@@ -96,19 +118,41 @@
       { q: "What is 50^2?", a: ["2500", "5000", "1000"], c: "2500", biscuit: "You're doing great... I think." },
       { q: "What is 250^2?", a: ["62500", "25000", "12500"], c: "62500", biscuit: "...Wait. Why is the room colder?" }
     ];
+
     let currentQuestion = 0;
+    let lineIndex = 0;
+    let audioPlayed = false;
+
+    function showNextLine() {
+      if (lineIndex < introLines.length) {
+        document.getElementById("dialogue").innerText = `🐾 Biscuit: "${introLines[lineIndex]}"`;
+        lineIndex++;
+      } else {
+        startBossFight();
+      }
+
+      if (!audioPlayed) {
+        const audio = document.getElementById("bg-music");
+        audio.play().then(() => {
+          audioPlayed = true;
+        }).catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      }
+    }
+
+    document.addEventListener("keydown", () => showNextLine());
+    document.addEventListener("click", () => showNextLine());
 
     function startBossFight() {
       document.getElementById("glitch").innerText = "WARNING: ENTITY DETECTED...";
-      document.getElementById("intro").innerText = "You have been challenged by MATH!";
-      document.getElementById("bg-music").play();
+      document.getElementById("intro").style.display = "none";
 
       setTimeout(() => {
         document.getElementById("glitch").style.display = "none";
-        document.getElementById("intro").style.display = "none";
         document.getElementById("quiz-container").style.display = "block";
         showQuestion();
-      }, 3000);
+      }, 2000);
     }
 
     function showQuestion() {
@@ -133,10 +177,9 @@
         if (currentQuestion < questions.length) {
           showQuestion();
         } else {
-          // You win
           document.getElementById("biscuit-line").innerText = `🐾 Biscuit: "You... did it. But... this isn't over."`;
           setTimeout(() => {
-            window.location.href = "/timerevealed";  // redirect to spooky clock
+            window.location.href = "/timerevealed";
           }, 2500);
         }
       } else {
@@ -144,10 +187,6 @@
         window.location.href = "/";
       }
     }
-
-    // Start the fake loading + glitch + fight
-    setTimeout(startBossFight, 2000);
   </script>
-
 </body>
 </html>

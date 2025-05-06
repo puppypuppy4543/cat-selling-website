@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Clock Has Spoken</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+
+    #clock-img {
+      margin-top: 80px;
+      max-width: 80%;
+      height: auto;
+      animation: fadeIn 3s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .main-text {
+      font-size: 2rem;
+      margin-top: 40px;
+      color: #ff3333;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px red; }
+      25% { text-shadow: -2px 2px lime; }
+      50% { text-shadow: 2px -2px blue; }
+      75% { text-shadow: -2px -2px magenta; }
+      100% { text-shadow: 2px 2px red; }
+    }
+
+    #floating {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      font-size: 1.1rem;
+      color: white;
+      font-style: italic;
+      animation: floatText 3s infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes floatText {
+      from { transform: translateY(0); opacity: 0.6; }
+      to { transform: translateY(-10px); opacity: 1; }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="main-text">The Clock Has Spoken.</h1>
+  <img id="clock-img" src="{{ url_for('static', filename='spooky_clock.png') }}" alt="Spooky Clock">
+
+  <div id="floating">The next arc begins... when the seconds break.</div>
+
+  <audio id="bg-music" src="{{ url_for('static', filename='bg_music.mp3') }}" autoplay loop></audio>
+
+  <script>
+    // Redirect after 30 seconds
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 30000);
+  </script>
+</body>
+</html>
