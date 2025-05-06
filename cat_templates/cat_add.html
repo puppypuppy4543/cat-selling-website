@@ -101,7 +101,7 @@
 
   <div id="floating">The Numbers were only the beginning... He is watching, KOT.</div>
 
-  <audio id="bg-music" src="https://cdn.pixabay.com/audio/2022/08/20/audio_9d2cc6b5f3.mp3" loop></audio>
+  <audio id="bg-music" src="{{ url_for('static', filename='bg_music.mp3') }}" loop></audio>
 
   <script>
     const introLines = [
@@ -136,7 +136,7 @@
         audio.play().then(() => {
           audioPlayed = true;
         }).catch((error) => {
-          console.error("Error playing audio:", error);  // Log any errors
+          console.error("Error playing audio:", error);
         });
       }
     }
